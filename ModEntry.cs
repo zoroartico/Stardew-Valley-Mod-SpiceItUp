@@ -58,9 +58,7 @@ namespace SpiceItUpMod
             this.Helper.Input.Suppress(e.Button);
 
             // Temporary interaction confirmation.
-            Game1.activeClickableMenu = new SpiceGrinderMenu(
-                this.spiceManager
-            );
+            Game1.activeClickableMenu = new SpiceGrinderMenu();
         }
 
         private void OnAssetRequested(
@@ -101,6 +99,16 @@ namespace SpiceItUpMod
                     };
                 });
             }
+            else if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
+            {
+                e.Edit(asset =>
+                {
+                    var recipes = asset.AsDictionary<string, string>().Data;
+
+                    this.spiceManager.AddToCraftingRecipes(recipes);
+                });
+            }
+
         }
 
     }

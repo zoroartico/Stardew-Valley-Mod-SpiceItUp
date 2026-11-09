@@ -89,6 +89,31 @@ namespace SpiceItUpMod.Services
             }
         }
 
+
+        public void AddToCraftingRecipes(IDictionary<string, string> craftingRecipes)
+        {
+            foreach (SpiceRecipe recipe in this.recipes.Values)
+            {
+                string ingredients = string.Join(
+                    " ",
+                    recipe.Ingredients.SelectMany(ingredient => new[]
+                    {
+                ingredient.Key,
+                ingredient.Value.ToString()
+                    })
+                );
+
+                string outputId = $"{this.modId}_{recipe.SpiceId}";
+
+                string recipeId = $"{this.modId}_Recipe_{recipe.Id}";
+
+                string displayName = this.spices[recipe.SpiceId].DisplayName;
+
+                craftingRecipes[recipeId] =
+                    $"{ingredients}/Home/{outputId} {recipe.OutputCount}/false/null/{displayName}";
+            }
+        }
+
         public string GetQualifiedItemId(string spiceId)
         {
             if (!this.spices.ContainsKey(spiceId))
