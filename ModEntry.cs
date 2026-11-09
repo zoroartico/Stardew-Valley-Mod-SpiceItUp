@@ -10,6 +10,8 @@ using StardewValley.GameData.BigCraftables;
 using StardewValley;
 using StardewValley.Menus;
 
+using SpiceItUpMod.Menus;
+
 namespace SpiceItUpMod
 {
     internal sealed class ModEntry : Mod
@@ -56,8 +58,8 @@ namespace SpiceItUpMod
             this.Helper.Input.Suppress(e.Button);
 
             // Temporary interaction confirmation.
-            Game1.activeClickableMenu = new DialogueBox(
-                "The Spice Grinder is ready to use!"
+            Game1.activeClickableMenu = new SpiceGrinderMenu(
+                this.spiceManager
             );
         }
 
