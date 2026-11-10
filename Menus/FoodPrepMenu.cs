@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -8,11 +9,22 @@ namespace SpiceItUpMod.Menus
     {
         public FoodPrepMenu()
             : base(
-                Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
-                Game1.uiViewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2,
-                800 + IClickableMenu.borderWidth * 2,
-                600 + IClickableMenu.borderWidth * 2)
+                Game1.uiViewport.Width / 2 - (400 + IClickableMenu.borderWidth * 2) / 2,
+                Game1.uiViewport.Height / 2 - (300 + IClickableMenu.borderWidth * 2) / 2,
+                400 + IClickableMenu.borderWidth * 2,
+                300 + IClickableMenu.borderWidth * 2)
         {
+            this.upperRightCloseButton = new ClickableTextureComponent(
+                new Rectangle(
+                    xPositionOnScreen + width - 36,
+                    yPositionOnScreen - 16,
+                    48,
+                    48
+                ),
+                Game1.mouseCursors,
+                new Rectangle(337, 494, 12, 12),
+                4f
+            );
         }
 
         //test
@@ -27,6 +39,7 @@ namespace SpiceItUpMod.Menus
                 false,
                 true
             );
+            this.upperRightCloseButton?.draw(b);
 
             drawMouse(b);
         }
