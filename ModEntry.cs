@@ -17,19 +17,21 @@ namespace SpiceItUpMod
     internal sealed class ModEntry : Mod
     {
         private SpiceManager spiceManager = null!;
+        internal static string ModId { get; private set; } = string.Empty;
 
         public override void Entry(IModHelper helper)
         {
-            this.spiceManager = new SpiceManager(
-                this.ModManifest.UniqueID
-            );
+            ModId = this.ModManifest.UniqueID;
+
+            this.spiceManager = new SpiceManager(ModId);
+
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
         }
 
 
-        private const string GrinderId =
-            "(BC)zoroartico.SpiceItUpMod_SpiceGrinder";
+        private string GrinderId =>
+            $"(BC){this.ModManifest.UniqueID}_SpiceGrinder";
 
         private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
         {
@@ -57,9 +59,7 @@ namespace SpiceItUpMod
             // Prevent Stardew from processing the same interaction.
             this.Helper.Input.Suppress(e.Button);
 
-            Game1.activeClickableMenu = new SpiceGrinderMenu(
-                this.ModManifest.UniqueID
-            );
+            Game1.activeClickableMenu = new SpiceGrinderMenu();
         }
 
         private void OnAssetRequested(
@@ -83,8 +83,8 @@ namespace SpiceItUpMod
                     var machines =
                         asset.AsDictionary<string, BigCraftableData>().Data;
 
-                    const string grinderId =
-                        "zoroartico.SpiceItUpMod_SpiceGrinder";
+                    string grinderId =
+                        $"{this.ModManifest.UniqueID}_SpiceGrinder";
 
                     machines[grinderId] = new BigCraftableData
                     {

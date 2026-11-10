@@ -6,8 +6,7 @@ namespace SpiceItUpMod.Menus
 {
     internal class SpiceGrinderMenu : CraftingPage
     {
-        private readonly string recipePrefix;
-        public SpiceGrinderMenu(string modId)
+        public SpiceGrinderMenu()
             : base(
                 Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
                 Game1.uiViewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2,
@@ -16,10 +15,12 @@ namespace SpiceItUpMod.Menus
                 cooking: false,
                 standaloneMenu: true)
         {
-            this.recipePrefix = $"{modId}_Recipe_";
         }
+
         protected override List<string> GetRecipesToDisplay()
         {
+            string recipePrefix = $"{SpiceItUpMod.ModEntry.ModId}_Recipe_";
+
             var recipes = Game1.content.Load<Dictionary<string, string>>(
                 "Data/CraftingRecipes"
             );
@@ -31,6 +32,5 @@ namespace SpiceItUpMod.Menus
                 ))
                 .ToList();
         }
-
     }
 }
