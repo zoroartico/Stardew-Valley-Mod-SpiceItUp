@@ -69,7 +69,7 @@ namespace SpiceItUpMod.Content
                 ),
                 new SpiceRecipe(
                     id: "ChiliPowder",
-                    spiceId: "Chili Powder",
+                    spiceId: "ChiliPowder",
                     ingredients: new Dictionary<string, int>
                     {
                         ["(O)260"] = 1 // Hot Peppers
