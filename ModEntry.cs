@@ -97,6 +97,22 @@ namespace SpiceItUpMod
                         CanBePlacedOutdoors = true,
                         Fragility = 0
                     };
+
+                    string prepStationId =
+                        $"{this.ModManifest.UniqueID}_FoodPrepStation";
+
+                    machines[prepStationId] = new BigCraftableData
+                    {
+                        Name = prepStationId,
+                        DisplayName = "Food Prep Station",
+                        Description = "A station for preparing and seasoning cooked food.",
+                        Price = 1000,
+                        Texture = "TileSheets/Craftables",
+                        SpriteIndex = 0,
+                        CanBePlacedIndoors = true,
+                        CanBePlacedOutdoors = true,
+                        Fragility = 0
+                    };
                 });
             }
             else if (e.NameWithoutLocale.IsEquivalentTo("Data/CraftingRecipes"))
