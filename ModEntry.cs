@@ -31,6 +31,8 @@ namespace SpiceItUpMod
 
         private string GrinderId =>
             $"(BC){this.ModManifest.UniqueID}_SpiceGrinder";
+        private string FoodPrepStationId =>
+            $"(BC){this.ModManifest.UniqueID}_FoodPrepStation";
 
         private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
         {
@@ -52,13 +54,20 @@ namespace SpiceItUpMod
                 return;
 
             // Check whether the object is Spice Grinder.
-            if (placedObject.QualifiedItemId != GrinderId)
+            if (placedObject.QualifiedItemId == GrinderId)
+            {
+                this.Helper.Input.Suppress(e.Button);
+                Game1.activeClickableMenu = new SpiceGrinderMenu();
                 return;
+            }
 
-            // Prevent Stardew from processing the same interaction.
-            this.Helper.Input.Suppress(e.Button);
-
-            Game1.activeClickableMenu = new SpiceGrinderMenu();
+            // Check whether the object is Food Prep Station.
+            if (placedObject.QualifiedItemId == FoodPrepStationId)
+            {
+                this.Helper.Input.Suppress(e.Button);
+                //Game1.activeClickableMenu = new FoodPrepStationMenu(); //gotta make this still
+                return;
+            }
         }
 
         private void OnAssetRequested(
