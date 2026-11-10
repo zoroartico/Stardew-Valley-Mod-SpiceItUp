@@ -65,7 +65,7 @@ namespace SpiceItUpMod
             if (placedObject.QualifiedItemId == FoodPrepStationId)
             {
                 this.Helper.Input.Suppress(e.Button);
-                //Game1.activeClickableMenu = new FoodPrepStationMenu(); //gotta make this still
+                Game1.activeClickableMenu = new FoodPrepMenu();
                 return;
             }
         }
