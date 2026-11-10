@@ -1,9 +1,10 @@
 ﻿
-using System;
-using System.Collections.Generic;
+using SpiceItUpMod.Content;
 using SpiceItUpMod.Models;
 using StardewValley;
 using StardewValley.GameData.Objects;
+using System;
+using System.Collections.Generic;
 
 namespace SpiceItUpMod.Services
 {
@@ -21,24 +22,15 @@ namespace SpiceItUpMod.Services
         {
             this.modId = modId;
 
-            this.Register(new SpiceDefinition(
-                id: "Cinnamon",
-                displayName: "Cinnamon",
-                description: "A warm, aromatic spice.",
-                price: 20,
-                edibility: -300,
-                spriteIndex: 246
-            ));
+            foreach (SpiceDefinition spice in SpiceCatalog.GetSpices())
+            {
+                this.Register(spice);
+            }
 
-            this.RegisterRecipe(new SpiceRecipe(
-                id: "Cinnamon",
-                spiceId: "Cinnamon",
-                ingredients: new Dictionary<string, int>
-                {
-                    ["(O)396"] = 1, // Spice Berry
-                    ["(O)16"] = 1   // Wild Horseradish
-                }
-            ));
+            foreach (SpiceRecipe recipe in SpiceCatalog.GetRecipes())
+            {
+                this.RegisterRecipe(recipe);
+            }
         }
 
         private void Register(SpiceDefinition spice)

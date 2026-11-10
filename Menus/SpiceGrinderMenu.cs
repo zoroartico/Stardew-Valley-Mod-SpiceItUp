@@ -1,9 +1,6 @@
 ﻿
 using StardewValley;
 using StardewValley.Menus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SpiceItUpMod.Menus
 {
