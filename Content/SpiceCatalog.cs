@@ -16,11 +16,15 @@ namespace SpiceItUpMod.Content
                     price: 20,
                     edibility: -300,
                     spriteIndex: 246,
-                    effect: new SpiceEffect(
-                        type: SpiceEffectType.Speed, 
-                        value: 1,
-                        duration: 120
-                    )
+                    effects: new List<SpiceEffect>
+                    {
+                        new(SpiceEffectType.Energy, 50),
+                        new(SpiceEffectType.Health, 25),
+                        new(SpiceEffectType.Speed, 1, 120),
+                        new(SpiceEffectType.Attack, 2, 300),
+                        new(SpiceEffectType.Defense, 2, 300),
+                        new(SpiceEffectType.Luck, 1, 900)
+                    }
                 ),
 
                 new SpiceDefinition(
@@ -30,11 +34,15 @@ namespace SpiceItUpMod.Content
                     price: 25,
                     edibility: -300,
                     spriteIndex: 248,
-                    effect: new SpiceEffect(
-                        type: SpiceEffectType.Defense,
-                        value: 2,
-                        duration: 300
-                    )
+                    effects: new List<SpiceEffect>
+                    {
+                        new(SpiceEffectType.Energy, 50),
+                        new(SpiceEffectType.Health, 25),
+                        new(SpiceEffectType.Speed, 1, 120),
+                        new(SpiceEffectType.Attack, 2, 300),
+                        new(SpiceEffectType.Defense, 2, 300),
+                        new(SpiceEffectType.Luck, 1, 900)
+                    }
                 ),
                 new SpiceDefinition(
                     id: "ChiliPowder",
@@ -43,11 +51,15 @@ namespace SpiceItUpMod.Content
                     price: 30,
                     edibility: -300,
                     spriteIndex: 249,
-                    effect: new SpiceEffect(
-                        type: SpiceEffectType.Attack,
-                        value: 2,
-                        duration: 300
-                    )
+                    effects: new List<SpiceEffect>
+                    {
+                        new(SpiceEffectType.Energy, 50),
+                        new(SpiceEffectType.Health, 25),
+                        new(SpiceEffectType.Speed, 1, 120),
+                        new(SpiceEffectType.Attack, 2, 300),
+                        new(SpiceEffectType.Defense, 2, 300),
+                        new(SpiceEffectType.Luck, 1, 900)
+                    }
                 ),
                 new SpiceDefinition(
                     id: "GarlicPowder",
@@ -56,11 +68,15 @@ namespace SpiceItUpMod.Content
                     price: 50,
                     edibility: -300,
                     spriteIndex: 250,
-                    effect: new SpiceEffect(
-                        type: SpiceEffectType.Luck,
-                        value: 1,
-                        duration: 900
-                    )
+                    effects: new List<SpiceEffect>
+                    {
+                        new(SpiceEffectType.Energy, 50),
+                        new(SpiceEffectType.Health, 25),
+                        new(SpiceEffectType.Speed, 1, 120),
+                        new(SpiceEffectType.Attack, 2, 300),
+                        new(SpiceEffectType.Defense, 2, 300),
+                        new(SpiceEffectType.Luck, 1, 900)
+                    }
                 ),
             };
         }

@@ -176,7 +176,7 @@ namespace SpiceItUpMod.Menus
             }
 
             // Append the new effect.
-            effects.Add(spice.Effect);
+            effects.AddRange(spice.Effects);
 
             // Save the updated effects.
             seasonedFood.modData[SeasoningDataKey] =
