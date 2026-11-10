@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpiceItUpMod.Content;
+using SpiceItUpMod.Models;
 using StardewValley;
 using StardewValley.Menus;
+using System.Text.Json;
 
 namespace SpiceItUpMod.Menus
 {
@@ -14,6 +17,11 @@ namespace SpiceItUpMod.Menus
         private Item? heldItem;
         private Item? foodItem;
         private Item? seasoningItem;
+        private Item? outputItem;
+        private Item? hoveredItem;
+        private const string SeasoningDataKey =
+            "SpiceItUpMod/SeasoningEffects";
+
         public FoodPrepMenu()
             : base(
                 Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
@@ -76,7 +84,7 @@ namespace SpiceItUpMod.Menus
                     this.foodItem = this.heldItem;
                     this.heldItem = previousItem;
                 }
-
+                this.UpdateOutputPreview();
                 return;
             }
 
@@ -94,16 +102,99 @@ namespace SpiceItUpMod.Menus
                     this.seasoningItem = this.heldItem;
                     this.heldItem = previousItem;
                 }
+                this.UpdateOutputPreview();
+                return;
+            }
+
+            // Output slot
+            if (this.outputSlot.containsPoint(x, y))
+            {
+                if (this.heldItem == null && this.outputItem != null)
+                {
+                    this.heldItem = this.outputItem;
+                    this.outputItem = null;
+
+                    ConsumeOne(ref this.foodItem);
+                    ConsumeOne(ref this.seasoningItem);
+
+                    this.UpdateOutputPreview();
+
+                    Game1.playSound("coin");
+                }
 
                 return;
             }
 
-            // output (non-functioning)
-            if (this.outputSlot.containsPoint(x, y))
+            // Player inventory.
+            this.heldItem = this.inventoryMenu.leftClick(x, y, this.heldItem);
+        }
+
+        public override void performHoverAction(int x, int y)
+        {
+            base.performHoverAction(x, y);
+
+            this.hoveredItem = null;
+
+            if (foodSlot.containsPoint(x, y))
+                this.hoveredItem = foodItem;
+            else if (seasoningSlot.containsPoint(x, y))
+                this.hoveredItem = seasoningItem;
+            else if (outputSlot.containsPoint(x, y))
+                this.hoveredItem = outputItem;
+            else
+                this.hoveredItem = inventoryMenu.hover(x, y, null);
+        }
+        private void UpdateOutputPreview()
+        {
+            this.outputItem = null;
+
+            if (this.foodItem == null || this.seasoningItem == null)
                 return;
 
-       
-            this.heldItem = this.inventoryMenu.leftClick(x, y, this.heldItem);
+            var spice = SpiceCatalog.GetSpices().FirstOrDefault(
+                s => $"(O){ModEntry.ModId}_{s.Id}" ==
+                     this.seasoningItem.QualifiedItemId
+            );
+
+            if (spice == null)
+                return;
+
+            // Create a copy of the food.
+            Item seasonedFood = this.foodItem.getOne();
+            seasonedFood.Stack = 1;
+
+            // Retrieve existing seasoning effects.
+            List<SpiceEffect> effects = new();
+
+            if (seasonedFood.modData.TryGetValue(
+                SeasoningDataKey,
+                out string existingData))
+            {
+                effects = JsonSerializer.Deserialize<List<SpiceEffect>>(
+                    existingData
+                ) ?? new List<SpiceEffect>();
+            }
+
+            // Append the new effect.
+            effects.Add(spice.Effect);
+
+            // Save the updated effects.
+            seasonedFood.modData[SeasoningDataKey] =
+                JsonSerializer.Serialize(effects);
+
+            // Display the preview.
+            this.outputItem = seasonedFood;
+        }
+
+        private static void ConsumeOne(ref Item? item)
+        {
+            if (item == null)
+                return;
+
+            item.Stack--;
+
+            if (item.Stack <= 0)
+                item = null;
         }
 
         //what's allowed in food slot
@@ -173,6 +264,12 @@ namespace SpiceItUpMod.Menus
                 1f
             );
 
+            this.outputItem?.drawInMenu(
+                b,
+                new Vector2(outputSlot.bounds.X, outputSlot.bounds.Y),
+                1f
+            );
+
             //draw inventory
             this.inventoryMenu.draw(b);
             if (this.heldItem != null)
@@ -183,6 +280,17 @@ namespace SpiceItUpMod.Menus
                     1f
                 );
             }
+
+            if (this.hoveredItem != null)
+            {
+                IClickableMenu.drawToolTip(
+                    b,
+                    this.hoveredItem.getDescription(),
+                    this.hoveredItem.DisplayName,
+                    this.hoveredItem
+                );
+            }
+
             drawMouse(b);
         }
     }
