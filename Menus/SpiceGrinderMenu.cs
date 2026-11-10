@@ -1,12 +1,16 @@
 ﻿
 using StardewValley;
 using StardewValley.Menus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SpiceItUpMod.Menus
 {
     internal class SpiceGrinderMenu : CraftingPage
     {
-        public SpiceGrinderMenu()
+        private readonly string recipePrefix;
+        public SpiceGrinderMenu(string modId)
             : base(
                 Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
                 Game1.uiViewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2,
@@ -15,6 +19,7 @@ namespace SpiceItUpMod.Menus
                 cooking: false,
                 standaloneMenu: true)
         {
+            this.recipePrefix = $"{modId}_Recipe_";
         }
         protected override List<string> GetRecipesToDisplay()
         {
@@ -24,8 +29,8 @@ namespace SpiceItUpMod.Menus
 
             return recipes.Keys
                 .Where(key => key.StartsWith(
-                    "zoroartico.SpiceItUpMod_Recipe_",
-                    System.StringComparison.OrdinalIgnoreCase
+                    recipePrefix,
+                    StringComparison.OrdinalIgnoreCase
                 ))
                 .ToList();
         }

@@ -57,8 +57,9 @@ namespace SpiceItUpMod
             // Prevent Stardew from processing the same interaction.
             this.Helper.Input.Suppress(e.Button);
 
-            // Temporary interaction confirmation.
-            Game1.activeClickableMenu = new SpiceGrinderMenu();
+            Game1.activeClickableMenu = new SpiceGrinderMenu(
+                this.ModManifest.UniqueID
+            );
         }
 
         private void OnAssetRequested(
