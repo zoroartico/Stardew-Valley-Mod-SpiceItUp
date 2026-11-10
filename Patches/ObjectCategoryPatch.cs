@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using StardewValley;
+using Microsoft.Xna.Framework;
 
 namespace SpiceItUpMod.Patches
 {
@@ -17,6 +17,20 @@ namespace SpiceItUpMod.Patches
                 StringComparison.OrdinalIgnoreCase))
             {
                 __result = "Seasoning";
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(StardewValley.Object), "GetCategoryColor")]
+    internal static class ObjectCategoryColorPatch
+    {
+        private static void Postfix(
+            int category,
+            ref Color __result)
+        {
+            if (category == -17)
+            {
+                __result = new Color(94, 46, 3);
             }
         }
     }

@@ -23,7 +23,7 @@ namespace SpiceItUpMod
             harmony.PatchAll();
 
             this.spiceManager = new SpiceManager(ModId);
-
+            
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
         }
