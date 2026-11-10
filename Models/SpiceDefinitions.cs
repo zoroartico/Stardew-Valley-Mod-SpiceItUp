@@ -9,6 +9,7 @@ namespace SpiceItUpMod.Models
         public int Price { get; }
         public int Edibility { get; }
         public int SpriteIndex { get; }
+        public SpiceEffect Effect { get; }
 
         public SpiceDefinition(
             string id,
@@ -16,7 +17,8 @@ namespace SpiceItUpMod.Models
             string description,
             int price,
             int edibility,
-            int spriteIndex)
+            int spriteIndex,
+            SpiceEffect effect)
         {
             Id = id;
             DisplayName = displayName;
@@ -24,6 +26,7 @@ namespace SpiceItUpMod.Models
             Price = price;
             Edibility = edibility;
             SpriteIndex = spriteIndex;
+            Effect = effect;
         }
     }
 }

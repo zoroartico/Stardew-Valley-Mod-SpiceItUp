@@ -15,7 +15,12 @@ namespace SpiceItUpMod.Content
                     description: "A warm, aromatic spice. Not to be challenged.",
                     price: 20,
                     edibility: -300,
-                    spriteIndex: 246
+                    spriteIndex: 246,
+                    effect: new SpiceEffect(
+                        type: SpiceEffectType.Speed, 
+                        value: 1,
+                        duration: 120
+                    )
                 ),
 
                 new SpiceDefinition(
@@ -24,7 +29,12 @@ namespace SpiceItUpMod.Content
                     description: "Unexpectedly sweet when cooked.",
                     price: 25,
                     edibility: -300,
-                    spriteIndex: 248
+                    spriteIndex: 248,
+                    effect: new SpiceEffect(
+                        type: SpiceEffectType.Defense,
+                        value: 2,
+                        duration: 300
+                    )
                 ),
                 new SpiceDefinition(
                     id: "ChiliPowder",
@@ -32,7 +42,12 @@ namespace SpiceItUpMod.Content
                     description: "A fiery, spicy blend that adds heat to any dish.",
                     price: 30,
                     edibility: -300,
-                    spriteIndex: 249
+                    spriteIndex: 249,
+                    effect: new SpiceEffect(
+                        type: SpiceEffectType.Attack,
+                        value: 2,
+                        duration: 300
+                    )
                 ),
                 new SpiceDefinition(
                     id: "GarlicPowder",
@@ -40,7 +55,12 @@ namespace SpiceItUpMod.Content
                     description: "The best spice ever created, the apex of natural flavour enhancement.",
                     price: 50,
                     edibility: -300,
-                    spriteIndex: 250
+                    spriteIndex: 250,
+                    effect: new SpiceEffect(
+                        type: SpiceEffectType.Luck,
+                        value: 1,
+                        duration: 900
+                    )
                 ),
             };
         }
