@@ -4,6 +4,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley.GameData.BigCraftables;
 using StardewValley;
+using HarmonyLib;
 
 using SpiceItUpMod.Menus;
 
@@ -17,6 +18,9 @@ namespace SpiceItUpMod
         public override void Entry(IModHelper helper)
         {
             ModId = this.ModManifest.UniqueID;
+
+            var harmony = new Harmony(this.ModManifest.UniqueID);
+            harmony.PatchAll();
 
             this.spiceManager = new SpiceManager(ModId);
 

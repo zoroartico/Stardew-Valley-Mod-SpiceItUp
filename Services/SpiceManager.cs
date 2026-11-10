@@ -10,6 +10,7 @@ namespace SpiceItUpMod.Services
     internal sealed class SpiceManager
     {
         private readonly string modId;
+        private const int SeasoningCategory = -17;
 
         private readonly Dictionary<string, SpiceDefinition> spices =
             new(StringComparer.OrdinalIgnoreCase);
@@ -71,7 +72,7 @@ namespace SpiceItUpMod.Services
                     DisplayName = spice.DisplayName,
                     Description = spice.Description,
                     Type = "Basic",
-                    Category = -17,
+                    Category = SeasoningCategory,
                     Price = spice.Price,
                     Edibility = spice.Edibility,
                     Texture = "Maps/springobjects",
