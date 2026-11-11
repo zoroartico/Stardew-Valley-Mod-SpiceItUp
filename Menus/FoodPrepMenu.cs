@@ -19,16 +19,31 @@ namespace SpiceItUpMod.Menus
         private Item? seasoningItem;
         private Item? outputItem;
         private Item? hoveredItem;
+        private StardewValley.Object station;
         private const string SeasoningDataKey =
             "SpiceItUpMod/SeasoningEffects";
 
-        public FoodPrepMenu()
+        public FoodPrepMenu(StardewValley.Object station)
             : base(
                 Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
                 Game1.uiViewport.Height / 2 - (500 + IClickableMenu.borderWidth * 2) / 2,
                 800 + IClickableMenu.borderWidth * 2,
                 500 + IClickableMenu.borderWidth * 2)
         {
+            this.station = station;
+
+            this.foodItem = FoodPrepStorage.Load(
+                station,
+                FoodPrepStorage.StoredFoodKey
+            );
+
+            this.seasoningItem = FoodPrepStorage.Load(
+                station,
+                FoodPrepStorage.StoredSeasoningKey
+            );
+
+            this.UpdateOutputPreview();
+
             this.upperRightCloseButton = new ClickableTextureComponent(
                 new Rectangle(
                     xPositionOnScreen + width - 36,
@@ -66,10 +81,25 @@ namespace SpiceItUpMod.Menus
             );
         }
 
+        private void SaveInputs()
+        {
+            FoodPrepStorage.Save(
+                this.station,
+                FoodPrepStorage.StoredFoodKey,
+                this.foodItem
+            );
+
+            FoodPrepStorage.Save(
+                this.station,
+                FoodPrepStorage.StoredSeasoningKey,
+                this.seasoningItem
+            );
+        }
+
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             base.receiveLeftClick(x, y, playSound);
-
+            
             // Food slot
             if (this.foodSlot.containsPoint(x, y))
             {
@@ -85,6 +115,7 @@ namespace SpiceItUpMod.Menus
                     this.heldItem = previousItem;
                 }
                 this.UpdateOutputPreview();
+                this.SaveInputs();
                 return;
             }
 
@@ -103,6 +134,7 @@ namespace SpiceItUpMod.Menus
                     this.heldItem = previousItem;
                 }
                 this.UpdateOutputPreview();
+                this.SaveInputs();
                 return;
             }
 
@@ -121,7 +153,7 @@ namespace SpiceItUpMod.Menus
 
                     Game1.playSound("coin");
                 }
-
+                this.SaveInputs();
                 return;
             }
 
