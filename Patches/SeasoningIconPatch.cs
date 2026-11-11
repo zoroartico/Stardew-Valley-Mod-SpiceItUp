@@ -59,23 +59,26 @@ namespace SpiceItUpMod.Patches
                 }
             }
 
-            // Two columns, three rows. Will change later to better accomodate stacking, just testing idea rn
+            // Three columns, rows grow upward from the bottom-left.
             const float iconSize = 10f;
             const float iconScale = 1.2f;
             const float spacing = 1f;
+            const int columns = 3;
 
-            float totalWidth = (iconSize * iconScale * 2) + spacing;
-            float startX = location.X + 64f * scaleSize - totalWidth;
-            float startY = location.Y + 64f * scaleSize - 25f;
+            float iconSpacing = iconSize * iconScale + spacing;
+
+            float startX = location.X + 2f;
+            float startY = location.Y + 64f * scaleSize
+                - iconSpacing * ((uniqueEffects.Count + columns - 1) / columns);
 
             for (int i = 0; i < uniqueEffects.Count; i++)
             {
-                int column = i % 2;
-                int row = i / 2;
+                int column = i % columns;
+                int row = i / columns;
 
                 Vector2 position = new(
-                    startX + column * (iconSize * iconScale + spacing),
-                    startY + row * (iconSize * iconScale + spacing)
+                    startX + column * iconSpacing,
+                    startY + ((uniqueEffects.Count + columns - 1) / columns - 1 - row) * iconSpacing
                 );
 
                 spriteBatch.Draw(
