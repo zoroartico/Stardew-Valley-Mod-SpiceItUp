@@ -14,7 +14,6 @@ namespace SpiceItUpMod.Menus
         private ClickableComponent foodSlot;
         private ClickableComponent seasoningSlot;
         private ClickableComponent outputSlot;
-        private Item? heldItem;
         private Item? foodItem;
         private Item? seasoningItem;
         private Item? outputItem;
@@ -99,21 +98,25 @@ namespace SpiceItUpMod.Menus
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
             base.receiveLeftClick(x, y, playSound);
-            
+
             // Food slot
             if (this.foodSlot.containsPoint(x, y))
             {
-                if (this.heldItem == null)
+                if (this.foodItem != null)
                 {
-                    this.heldItem = this.foodItem;
-                    this.foodItem = null;
+                    if (Game1.player.addItemToInventoryBool(this.foodItem))
+                        this.foodItem = null;
                 }
-                else if (IsValidFood(this.heldItem))
+                else
                 {
-                    Item? previousItem = this.foodItem;
-                    this.foodItem = this.heldItem;
-                    this.heldItem = previousItem;
+                    Item? clickedItem = this.inventoryMenu.hover(x, y, null);
+
+                    if (clickedItem != null && IsValidFood(clickedItem))
+                    {
+                        this.foodItem = this.inventoryMenu.leftClick(x, y, null);
+                    }
                 }
+
                 this.UpdateOutputPreview();
                 this.SaveInputs();
                 return;
@@ -122,17 +125,21 @@ namespace SpiceItUpMod.Menus
             // Seasoning slot
             if (this.seasoningSlot.containsPoint(x, y))
             {
-                if (this.heldItem == null)
+                if (this.seasoningItem != null)
                 {
-                    this.heldItem = this.seasoningItem;
-                    this.seasoningItem = null;
+                    if (Game1.player.addItemToInventoryBool(this.seasoningItem))
+                        this.seasoningItem = null;
                 }
-                else if (IsValidSeasoning(this.heldItem))
+                else
                 {
-                    Item? previousItem = this.seasoningItem;
-                    this.seasoningItem = this.heldItem;
-                    this.heldItem = previousItem;
+                    Item? clickedItem = this.inventoryMenu.hover(x, y, null);
+
+                    if (clickedItem != null && IsValidSeasoning(clickedItem))
+                    {
+                        this.seasoningItem = this.inventoryMenu.leftClick(x, y, null);
+                    }
                 }
+
                 this.UpdateOutputPreview();
                 this.SaveInputs();
                 return;
@@ -141,24 +148,45 @@ namespace SpiceItUpMod.Menus
             // Output slot
             if (this.outputSlot.containsPoint(x, y))
             {
-                if (this.heldItem == null && this.outputItem != null)
+                if (this.outputItem != null
+                    && Game1.player.addItemToInventoryBool(this.outputItem))
                 {
-                    this.heldItem = this.outputItem;
-                    this.outputItem = null;
-
                     ConsumeOne(ref this.foodItem);
                     ConsumeOne(ref this.seasoningItem);
 
                     this.UpdateOutputPreview();
+                    this.SaveInputs();
 
                     Game1.playSound("coin");
                 }
+
+                return;
+            }
+            // Player inventory
+            Item? inventoryItem = this.inventoryMenu.hover(x, y, null);
+
+            if (inventoryItem == null)
+                return;
+
+            // Food
+            if (this.foodItem == null && IsValidFood(inventoryItem))
+            {
+                this.foodItem = this.inventoryMenu.leftClick(x, y, null);
+
+                this.UpdateOutputPreview();
                 this.SaveInputs();
                 return;
             }
 
-            // Player inventory.
-            this.heldItem = this.inventoryMenu.leftClick(x, y, this.heldItem);
+            // Seasoning
+            if (this.seasoningItem == null && IsValidSeasoning(inventoryItem))
+            {
+                this.seasoningItem = this.inventoryMenu.leftClick(x, y, null);
+
+                this.UpdateOutputPreview();
+                this.SaveInputs();
+                return;
+            }
         }
 
         public override void performHoverAction(int x, int y)
@@ -304,14 +332,6 @@ namespace SpiceItUpMod.Menus
 
             //draw inventory
             this.inventoryMenu.draw(b);
-            if (this.heldItem != null)
-            {
-                this.heldItem.drawInMenu(
-                    b,
-                    new Vector2(Game1.getOldMouseX(), Game1.getOldMouseY()),
-                    1f
-                );
-            }
 
             if (this.hoveredItem != null)
             {
