@@ -2,12 +2,32 @@
 {
     internal enum SpiceEffectType
     {
+        // Restoration
         Energy,
         Health,
+
+        // Skills
+        Farming,
+        Fishing,
+        Mining,
+        Foraging,
+        Luck,
+
+        // Player stats
+        MaxStamina,
+        MagneticRadius,
         Speed,
-        Attack,
+        Attack, 
         Defense,
-        Luck
+        Immunity,
+
+        // Combat multipliers
+        AttackMultiplier,
+        KnockbackMultiplier,
+        WeaponSpeedMultiplier,
+        CriticalChanceMultiplier,
+        CriticalPowerMultiplier,
+        WeaponPrecisionMultiplier
     }
 
     internal class SpiceEffect

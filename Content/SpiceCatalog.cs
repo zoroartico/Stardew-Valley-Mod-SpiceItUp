@@ -18,11 +18,6 @@ namespace SpiceItUpMod.Content
                     spriteIndex: 246,
                     effects: new List<SpiceEffect>
                     {
-                        new(SpiceEffectType.Energy, 50),
-                        new(SpiceEffectType.Health, 25),
-                        new(SpiceEffectType.Speed, 1, 120),
-                        new(SpiceEffectType.Attack, 2, 300),
-                        new(SpiceEffectType.Defense, 2, 300),
                         new(SpiceEffectType.Luck, 1, 900)
                     }
                 ),
@@ -30,52 +25,43 @@ namespace SpiceItUpMod.Content
                 new SpiceDefinition(
                     id: "GroundGinger",
                     displayName: "Ground Ginger",
-                    description: "Unexpectedly sweet when cooked.",
+                    description: "A transformative seasoning that can be both sweet or spicy.",
                     price: 25,
                     edibility: -300,
                     spriteIndex: 248,
                     effects: new List<SpiceEffect>
                     {
-                        new(SpiceEffectType.Energy, 50),
-                        new(SpiceEffectType.Health, 25),
                         new(SpiceEffectType.Speed, 1, 120),
-                        new(SpiceEffectType.Attack, 2, 300),
-                        new(SpiceEffectType.Defense, 2, 300),
+                        new(SpiceEffectType.Attack, 1, 300),
                         new(SpiceEffectType.Luck, 1, 900)
                     }
                 ),
                 new SpiceDefinition(
                     id: "ChiliPowder",
                     displayName: "Chili Powder",
-                    description: "A fiery, spicy blend that adds heat to any dish.",
+                    description: "A fiery spice blend that adds heat to any dish.",
                     price: 30,
                     edibility: -300,
                     spriteIndex: 249,
                     effects: new List<SpiceEffect>
                     {
                         new(SpiceEffectType.Energy, 50),
-                        new(SpiceEffectType.Health, 25),
                         new(SpiceEffectType.Speed, 1, 120),
                         new(SpiceEffectType.Attack, 2, 300),
-                        new(SpiceEffectType.Defense, 2, 300),
-                        new(SpiceEffectType.Luck, 1, 900)
                     }
                 ),
                 new SpiceDefinition(
                     id: "GarlicPowder",
                     displayName: "Garlic Powder",
-                    description: "The best spice ever created, the apex of natural flavour enhancement.",
+                    description: "The best seasoning ever created, the apex of natural flavour enhancement.",
                     price: 50,
                     edibility: -300,
                     spriteIndex: 250,
                     effects: new List<SpiceEffect>
                     {
-                        new(SpiceEffectType.Energy, 50),
-                        new(SpiceEffectType.Health, 25),
-                        new(SpiceEffectType.Speed, 1, 120),
-                        new(SpiceEffectType.Attack, 2, 300),
+                        new(SpiceEffectType.Health, 50),
                         new(SpiceEffectType.Defense, 2, 300),
-                        new(SpiceEffectType.Luck, 1, 900)
+                        new(SpiceEffectType.Immunity, 2, 900)
                     }
                 ),
             };
