@@ -26,6 +26,7 @@ namespace SpiceItUpMod
             
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
+            helper.Events.GameLoop.DayStarted += this.OnDayStarted;
         }
 
 
@@ -158,8 +159,35 @@ namespace SpiceItUpMod
                     });
                 });
             }
+            else if (e.NameWithoutLocale.IsEquivalentTo("Data/mail"))
+            {
+                e.Edit(asset =>
+                {
+                    var mail = asset.AsDictionary<string, string>().Data;
 
+                    mail[$"{ModId}_GusStationLetter"] =
+                        "Hey there @!^^"
+                        + "I think it's time I share a little food secret with you. "
+                        + "The secret to a good meal isn't just the ingredients, "
+                        + "but the perfect blend of spices too!^^"
+                        + "I'm now selling a 'Spice Grinder' and a^"
+                        + "'Food Prep Station'.^^"
+                        + "- Gus[#]A Note from Gus";
+                });
+            }
         }
 
+        private void OnDayStarted(object? sender, DayStartedEventArgs e)
+        {
+            string mailId = $"{ModId}_GusStationLetter";
+            int hearts = Game1.player.getFriendshipHeartLevelForNPC("Gus");
+            bool alreadyQueued = Game1.player.hasOrWillReceiveMail(mailId);
+
+            if (hearts < 4 || alreadyQueued)
+                return;
+
+            Game1.addMailForTomorrow(mailId);
+
+        }
     }
 }
