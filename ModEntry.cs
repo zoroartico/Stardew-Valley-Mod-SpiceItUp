@@ -139,16 +139,20 @@ namespace SpiceItUpMod
                 {
                     var shops = asset.AsDictionary<string, ShopData>().Data;
 
-                    if (!shops.TryGetValue("Saloon", out ShopData saloon))
+                    if (!shops.TryGetValue("Saloon", out ShopData? saloon) || saloon == null)
                         return;
 
                     saloon.Items.Add(new ShopItemData
                     {
-                        Id = $"{this.ModManifest.UniqueID}_SpiceGrinderRecipe",
+                        Id = $"{this.ModManifest.UniqueID}_SpiceGrinder",
                         ItemId = GrinderId,
-                        IsRecipe = true,
-                        ObjectInternalName = $"{this.ModManifest.UniqueID}_SpiceGrinder",
                         Price = 1000
+                    });
+                    saloon.Items.Add(new ShopItemData
+                    {
+                        Id = $"{this.ModManifest.UniqueID}_FoodPrepStation",
+                        ItemId = FoodPrepStationId,
+                        Price = 2000
                     });
                 });
             }
