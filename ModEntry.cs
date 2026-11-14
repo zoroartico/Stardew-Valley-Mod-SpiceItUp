@@ -146,13 +146,15 @@ namespace SpiceItUpMod
                     {
                         Id = $"{this.ModManifest.UniqueID}_SpiceGrinder",
                         ItemId = GrinderId,
-                        Price = 1000
+                        Price = 1000,
+                        Condition = "PLAYER_FRIENDSHIP_POINTS Current Gus 1000"
                     });
                     saloon.Items.Add(new ShopItemData
                     {
                         Id = $"{this.ModManifest.UniqueID}_FoodPrepStation",
                         ItemId = FoodPrepStationId,
-                        Price = 2000
+                        Price = 2000,
+                        Condition = "PLAYER_FRIENDSHIP_POINTS Current Gus 1000"
                     });
                 });
             }
