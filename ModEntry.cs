@@ -1,12 +1,12 @@
 ﻿
+using HarmonyLib;
+using SpiceItUpMod.Menus;
 using SpiceItUpMod.Services;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewValley.GameData.BigCraftables;
 using StardewValley;
-using HarmonyLib;
-
-using SpiceItUpMod.Menus;
+using StardewValley.GameData.BigCraftables;
+using StardewValley.GameData.Shops;
 
 namespace SpiceItUpMod
 {
@@ -131,6 +131,25 @@ namespace SpiceItUpMod
                     var recipes = asset.AsDictionary<string, string>().Data;
 
                     this.spiceManager.AddToCraftingRecipes(recipes);
+                });
+            }
+            else if (e.NameWithoutLocale.IsEquivalentTo("Data/Shops"))
+            {
+                e.Edit(asset =>
+                {
+                    var shops = asset.AsDictionary<string, ShopData>().Data;
+
+                    if (!shops.TryGetValue("Saloon", out ShopData saloon))
+                        return;
+
+                    saloon.Items.Add(new ShopItemData
+                    {
+                        Id = $"{this.ModManifest.UniqueID}_SpiceGrinderRecipe",
+                        ItemId = GrinderId,
+                        IsRecipe = true,
+                        ObjectInternalName = $"{this.ModManifest.UniqueID}_SpiceGrinder",
+                        Price = 1000
+                    });
                 });
             }
 
