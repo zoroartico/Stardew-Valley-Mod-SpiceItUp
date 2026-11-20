@@ -101,7 +101,9 @@ namespace SpiceItUpMod
                         DisplayName = "Spice Grinder",
                         Description = "A machine for grinding and blending spices.",
                         Price = 500,
-                        Texture = "TileSheets/Craftables",
+                        Texture = this.Helper.ModContent.GetInternalAssetName(
+                            "Assets/BigCraftables.png"
+                        ).Name,
                         SpriteIndex = 0,
                         CanBePlacedIndoors = true,
                         CanBePlacedOutdoors = true,
@@ -117,8 +119,10 @@ namespace SpiceItUpMod
                         DisplayName = "Food Prep Station",
                         Description = "A station for preparing and seasoning cooked food.",
                         Price = 1000,
-                        Texture = "TileSheets/Craftables",
-                        SpriteIndex = 0,
+                        Texture = this.Helper.ModContent.GetInternalAssetName(
+                            "Assets/BigCraftables.png"
+                        ).Name,
+                        SpriteIndex = 1,
                         CanBePlacedIndoors = true,
                         CanBePlacedOutdoors = true,
                         Fragility = 0
