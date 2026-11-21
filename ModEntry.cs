@@ -1,5 +1,6 @@
 ﻿
 using HarmonyLib;
+using Microsoft.Xna.Framework.Graphics;
 using SpiceItUpMod.Menus;
 using SpiceItUpMod.Services;
 using StardewModdingAPI;
@@ -69,7 +70,16 @@ namespace SpiceItUpMod
             if (placedObject.QualifiedItemId == FoodPrepStationId)
             {
                 this.Helper.Input.Suppress(e.Button);
-                Game1.activeClickableMenu = new FoodPrepMenu(placedObject);
+
+                Texture2D background = this.Helper.ModContent.Load<Texture2D>(
+                    "Assets/FoodPrepMenu.png"
+                );
+
+                Game1.activeClickableMenu = new FoodPrepMenu(
+                    placedObject,
+                    background
+                );
+
                 return;
             }
         }

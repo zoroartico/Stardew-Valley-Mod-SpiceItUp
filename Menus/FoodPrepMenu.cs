@@ -19,17 +19,21 @@ namespace SpiceItUpMod.Menus
         private Item? outputItem;
         private Item? hoveredItem;
         private StardewValley.Object station;
+        private Texture2D menuBackground;
         private const string SeasoningDataKey =
             "SpiceItUpMod/SeasoningEffects";
 
-        public FoodPrepMenu(StardewValley.Object station)
-            : base(
+        public FoodPrepMenu(
+            StardewValley.Object station,
+            Texture2D menuBackground
+        ) : base(
                 Game1.uiViewport.Width / 2 - (800 + IClickableMenu.borderWidth * 2) / 2,
                 Game1.uiViewport.Height / 2 - (500 + IClickableMenu.borderWidth * 2) / 2,
                 800 + IClickableMenu.borderWidth * 2,
                 500 + IClickableMenu.borderWidth * 2)
         {
             this.station = station;
+            this.menuBackground = menuBackground;
 
             this.foodItem = FoodPrepStorage.Load(
                 station,
@@ -274,13 +278,16 @@ namespace SpiceItUpMod.Menus
         public override void draw(SpriteBatch b)
         {
 
-            Game1.drawDialogueBox(
-                xPositionOnScreen,
-                yPositionOnScreen,
-                width,
-                height,
-                false,
-                true
+            // Draw responsive menu background.
+            b.Draw(
+                this.menuBackground,
+                new Rectangle(
+                    xPositionOnScreen,
+                    yPositionOnScreen,
+                    width,
+                    height
+                ),
+                Color.White
             );
             this.upperRightCloseButton?.draw(b);
 
