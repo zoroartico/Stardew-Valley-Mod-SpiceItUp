@@ -16,7 +16,7 @@ jobs:
         
       - name: Read mod version
         id: mod_version
-        shell: pwsh
+        shell: cmd
         run: |
           $manifest = Get-Content "manifest.json" | ConvertFrom-Json
           $version = $manifest.Version
