@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
+          install-dir: C:\actions-runner\dotnet
 
       - name: Build mod
         run: dotnet build -c Release
