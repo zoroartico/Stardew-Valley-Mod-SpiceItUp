@@ -1,5 +1,6 @@
 ﻿
 using HarmonyLib;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpiceItUpMod.Menus;
 using SpiceItUpMod.Services;
@@ -55,8 +56,15 @@ namespace SpiceItUpMod
             // Get the tile the player is attempting to interact with.
             var tile = e.Cursor.GrabTile;
 
-            if (!Game1.currentLocation.objects.TryGetValue(tile, out StardewValley.Object placedObject))
-                return;
+            StardewValley.Object? placedObject = null;
+
+            if (!Game1.currentLocation.objects.TryGetValue(tile, out placedObject))
+            {
+                var tileAbove = new Vector2(tile.X, tile.Y + 1);
+
+                if (!Game1.currentLocation.objects.TryGetValue(tileAbove, out placedObject))
+                    return;
+            }
 
             // Check whether the object is Spice Grinder.
             if (placedObject.QualifiedItemId == GrinderId)
