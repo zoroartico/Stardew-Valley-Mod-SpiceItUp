@@ -31,9 +31,9 @@ jobs:
         with:
           api_key: ${{ secrets.NEXUSMODS_API_KEY }}
           file_id: 8434059
-          filename: "bin/Release/net6.0/SpiceItUpMod 1.0.0.zip"          
-          version: 1.0.0
+          filename: "bin/Release/net6.0/SpiceItUpMod ${{ steps.mod_version.outputs.version }}.zip"
+          version: ${{ steps.mod_version.outputs.version }}
+          display_name: Spice It Up Mod ${{ steps.mod_version.outputs.version }}
           mod_id: 55839
           category: main
-          display_name: Spice It Up Mod 1.0.0
           update_mod_version: true
