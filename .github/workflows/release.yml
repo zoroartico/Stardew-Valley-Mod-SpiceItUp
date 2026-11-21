@@ -1,0 +1,31 @@
+
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build mod
+        run: dotnet build -c Release
+        shell: cmd
+
+      - name: Upload to Nexus Mods
+        uses: Nexus-Mods/upload-action@v1.0.0-beta.11
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: 8434059
+          filename: "bin/Release/net6.0/SpiceItUpMod 1.0.0.zip"          
+          version: 1.0.0
+          mod_id: 55839
+          category: main
+          display_name: Spice It Up Mod 1.0.0
+          update_mod_version: true
