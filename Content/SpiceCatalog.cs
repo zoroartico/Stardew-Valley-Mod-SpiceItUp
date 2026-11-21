@@ -15,7 +15,7 @@ namespace SpiceItUpMod.Content
                     description: "A warm, aromatic spice. Not to be challenged.",
                     price: 20,
                     edibility: -300,
-                    spriteIndex: 246,
+                    spriteIndex: 0,
                     effects: new List<SpiceEffect>
                     {
                         new(SpiceEffectType.Luck, 1, 900)
@@ -28,7 +28,7 @@ namespace SpiceItUpMod.Content
                     description: "A transformative seasoning that can be both sweet or spicy.",
                     price: 25,
                     edibility: -300,
-                    spriteIndex: 248,
+                    spriteIndex: 1,
                     effects: new List<SpiceEffect>
                     {
                         new(SpiceEffectType.Speed, 1, 120),
@@ -42,7 +42,7 @@ namespace SpiceItUpMod.Content
                     description: "A fiery spice blend that adds heat to any dish.",
                     price: 30,
                     edibility: -300,
-                    spriteIndex: 249,
+                    spriteIndex: 2,
                     effects: new List<SpiceEffect>
                     {
                         new(SpiceEffectType.Energy, 50),
@@ -56,7 +56,7 @@ namespace SpiceItUpMod.Content
                     description: "The best seasoning ever created, the apex of natural flavour enhancement.",
                     price: 50,
                     edibility: -300,
-                    spriteIndex: 250,
+                    spriteIndex: 3,
                     effects: new List<SpiceEffect>
                     {
                         new(SpiceEffectType.Health, 50),

@@ -11,16 +11,17 @@ namespace SpiceItUpMod.Services
     {
         private readonly string modId;
         private const int SeasoningCategory = -17;
-
+        private readonly string spiceTexture;
         private readonly Dictionary<string, SpiceDefinition> spices =
             new(StringComparer.OrdinalIgnoreCase);
 
         private readonly Dictionary<string, SpiceRecipe> recipes =
             new(StringComparer.OrdinalIgnoreCase);
 
-        public SpiceManager(string modId)
+        public SpiceManager(string modId, string spiceTexture)
         {
             this.modId = modId;
+            this.spiceTexture = spiceTexture;
 
             foreach (SpiceDefinition spice in SpiceCatalog.GetSpices())
             {
@@ -75,7 +76,7 @@ namespace SpiceItUpMod.Services
                     Category = SeasoningCategory,
                     Price = spice.Price,
                     Edibility = spice.Edibility,
-                    Texture = "Maps/springobjects",
+                    Texture = this.spiceTexture,
                     SpriteIndex = spice.SpriteIndex
                 };
             }

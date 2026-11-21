@@ -22,8 +22,11 @@ namespace SpiceItUpMod
             var harmony = new Harmony(this.ModManifest.UniqueID);
             harmony.PatchAll();
 
-            this.spiceManager = new SpiceManager(ModId);
-            
+            this.spiceManager = new SpiceManager(
+                ModId,
+                this.Helper.ModContent.GetInternalAssetName("Assets/Spices.png").Name
+            );
+
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Content.AssetRequested += this.OnAssetRequested;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
