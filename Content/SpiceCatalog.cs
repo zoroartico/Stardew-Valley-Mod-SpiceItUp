@@ -76,7 +76,8 @@ namespace SpiceItUpMod.Content
                     spiceId: "Cinnamon",
                     ingredients: new Dictionary<string, int>
                     {
-                        ["(O)396"] = 1 // Spice Berry
+                        ["(O)396"] = 1, // Spice Berry
+
                     }
                 ),
 
