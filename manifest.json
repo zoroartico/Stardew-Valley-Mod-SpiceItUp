@@ -1,7 +1,7 @@
 {
   "Name": "Spice It Up Mod",
   "Author": "zoroartico",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "Description": "A mod that adds new spices to enhance in game meals.",
   "UniqueID": "zoroartico.SpiceItUpMod",
   "EntryDll": "SpiceItUpMod.dll",
